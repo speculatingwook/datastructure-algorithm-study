@@ -11,4 +11,12 @@ public class BinarySearchTree extends BinaryTree<Integer> {
     public void delete(int value) {
 
     }
+
+    public void insert(int value) {
+
+    }
+
+    public boolean isEmpty() {
+        return false;
+    }
 }

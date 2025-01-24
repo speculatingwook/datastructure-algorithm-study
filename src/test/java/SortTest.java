@@ -5,8 +5,7 @@ import org.speculatingwook.sort.*;
 import java.time.Duration;
 import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertTimeout;
+import static org.junit.jupiter.api.Assertions.*;
 
 class SortTest {
     private int[][] testArrays;
@@ -40,12 +39,27 @@ class SortTest {
     @Test
     void testBubbleSort() {
         Sort bubbleSort = new BubbleSort();
+        // 기본 테스트 케이스들 실행
         runTestsForSort(bubbleSort, "버블 정렬");
+
         // 성능 테스트 - 큰 배열
         assertTimeout(Duration.ofSeconds(2), () -> {
             int[] largeArray = generateRandomArray(1000);
-            bubbleSort.sort(largeArray);
+            int[] sorted = bubbleSort.sort(largeArray);
+
+            // 정렬이 제대로 되었는지 확인
+            assertTrue(isSorted(sorted), "버블 정렬: 대규모 배열 정렬 결과가 올바르지 않습니다");
         }, "버블 정렬 성능 테스트 실패");
+    }
+
+    // 배열이 정렬되었는지 확인하는 헬퍼 메서드
+    private boolean isSorted(int[] arr) {
+        for (int i = 0; i < arr.length - 1; i++) {
+            if (arr[i] > arr[i + 1]) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Test
